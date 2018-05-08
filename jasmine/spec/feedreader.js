@@ -105,13 +105,35 @@ $(function() {
             expect(entry).toBeGreaterThan("");
             done();
         });
-        
+    }); 
 
     /* TODO: Write a new test suite named "New Feed Selection" */
-
+    describe("New Feed Selection", function() {
+        var textContainer,
+            entryTextContent,
+            updatedTextContent;
+        beforeEach(function(done) {
+            
+            loadFeed(0, function() {
+                textContainer = document.querySelectorAll(".entry h2");
+                entryTextContent = textContainer[0].textContent;    
+            });
+            
+            loadFeed(1, function() {
+                textContainer = document.querySelectorAll(".entry h2");
+                updatedTextContent = textContainer[0].textContent;
+                done();
+            });
+            
+        });
+        
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        it("is loaded and content changes", function(done) {
+            expect(entryTextContent).not.toBe(updatedTextContent);
+            done();
+        });
     });
 }());
