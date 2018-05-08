@@ -1,13 +1,13 @@
-/* feedreader.js
- *
+/*
  * This is the spec file that Jasmine will read and contains
- * all of the tests that will be run against your application.
  */
 
 // Run if DOM is ready
 $(function() {
-    // First test suite
+    
+    // First test suite "RSS Feeds"
     describe('RSS Feeds', function() {
+        
         // Test if variables are defined and not empty
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
@@ -19,7 +19,7 @@ $(function() {
         it("have URLs definded and not empty", function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined();
-                expect(feed.url).not.toBe("");
+                expect(feed.url.length).not.toBe(0);
             });
         });
 
@@ -28,13 +28,12 @@ $(function() {
         it("have names definded and not empty", function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
-                expect(feed.name).not.toBe("");
+                expect(feed.name.length).not.toBe(0);
             });
         });
     });
 
-
-    // Test Suite "The menu"
+    // Test suite "The menu"
     describe("The menu", function() {
         var body,
             menu;
@@ -47,16 +46,32 @@ $(function() {
         
         // Test if menu is hidden by default
         it(" is hidden by default", function() {
-            expect(`${menu}`).toBe("menu-hidden");
+            
+            // Solution in Vanilla JS
+            expect(menu == "menu-hidden").toBe(true);
+            
+            // Solution in jQuery
+            // expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
         // Test if menu changes visibility when the menu icon is clicked
         it("changes visibility when the menu icon is clicked", function() {
             var menuIcon = document.querySelector(".menu-icon-link")
             menuIcon.click();
-                expect(`${menu}`).toBe("");
+            
+            //Solution in Vanilla JS
+            expect(menu == "menu-hidden").not.toBe(true);
+            
+            // Solution in jQuery
+            // expect($('body').hasClass('menu-hidden')).not.toBe(true);
+            
             menuIcon.click();
-                expect(`${menu}`).toBe("menu-hidden");      
+            
+            //Solution in Vanilla JS
+            expect(menu == "menu-hidden").toBe(true);
+            
+            // Solution in jQuery
+            // expect($('body').hasClass('menu-hidden')).toBe(true);
         });
     });
     
@@ -73,8 +88,8 @@ $(function() {
         
         // Test if the loadFeed function is called and completes its work (Async)
         it("ensures when the loadFeed function is called and completes its work", function(done) {
-            var entry = document.querySelector(".entry");
-            expect(entry).toBeGreaterThan("");
+            var entry = document.querySelector(".feed .entry");
+            expect(entry.textContent.length).toBeGreaterThan(0);
             done();
         });
     }); 
@@ -85,19 +100,21 @@ $(function() {
             entryTextContent,
             updatedTextContent;
         
-        // Async
+        // Async loading feed
         beforeEach(function(done) {
+            //Load one Feed 
             loadFeed(0, function() {
                 textContainer = document.querySelectorAll(".entry h2");
-                entryTextContent = textContainer[0].textContent;    
+                entryTextContent = textContainer[0].textContent;
+                
+                //Load another feed inside first feed
+                loadFeed(1, function() {
+                    textContainer = document.querySelectorAll(".entry h2");
+                    updatedTextContent = textContainer[0].textContent;
+                    done();
+                });
+                
             });
-            
-            loadFeed(1, function() {
-                textContainer = document.querySelectorAll(".entry h2");
-                updatedTextContent = textContainer[0].textContent;
-                done();
-            });
-            
         });
         
         //Test if New Feed Selection is loaded and content changes
