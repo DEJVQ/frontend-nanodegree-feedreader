@@ -66,7 +66,7 @@ $(function() {
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-        it("element is hidden by default", function() {
+        it(" is hidden by default", function() {
             expect(`${menu}`).toBe("menu-hidden");
         });
 
@@ -77,9 +77,10 @@ $(function() {
           * clicked and does it hide when clicked again.
           */
         it("changes visibility when the menu icon is clicked", function() {
-            $('.menu-icon-link').click();
+            var menuIcon = document.querySelector(".menu-icon-link")
+            menuIcon.click();
                 expect(`${menu}`).toBe("");
-            $('.menu-icon-link').click();
+            menuIcon.click();
                 expect(`${menu}`).toBe("menu-hidden");      
         });
     });
@@ -100,7 +101,7 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-        it("test that ensures when the loadFeed function is called and completes its work", function(done) {
+        it("ensures when the loadFeed function is called and completes its work", function(done) {
             var entry = document.querySelector(".entry");
             expect(entry).toBeGreaterThan("");
             done();

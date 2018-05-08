@@ -3,17 +3,17 @@ In this project you are given a web-based application that reads RSS feeds.
 The goal of this project is use [Jasmine](http://jasmine.github.io/) to test this Feedreader.
 
 In this projects are testing:
-* *RSS Feeds:*
-    -if are defined
-    -if have URLs definded and not empty
-    -have names definded and not empty
-* *The menu:*
-    -if is hidden by default
-    -if changes visibility when the menu icon is clicked
-* *Initial Entries:*
-    -if the loadFeed function is called and completes its work (Async)
-* *New Feed Selection:*
-    -if is loaded and content changes
+1. *RSS Feeds:*
+    * if are defined
+    * if have URLs definded and not empty
+    * have names definded and not empty
+2. *The menu:*
+    * if is hidden by default
+    * if changes visibility when the menu icon is clicked
+3. *Initial Entries:*
+    * if the loadFeed function is called and completes its work (Async)
+4. *New Feed Selection:*
+    * if is loaded and content changes
 
 ## How to download this project?
 You can download this game in 2 ways:
